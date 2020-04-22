@@ -1,0 +1,18 @@
+- git:
+    local-name: four_wheel_steering_msgs
+    uri: https://github.com/ros-drivers/four_wheel_steering_msgs.git
+- git:
+    local-name: ros_control
+    uri: https://github.com/ros-controls/ros_control.git
+- git:
+    local-name: ros_control_boilerplate
+    uri: https://github.com/PickNikRobotics/ros_control_boilerplate.git
+- git:
+    local-name: ros_controllers
+    uri: https://github.com/ros-controls/ros_controllers.git
+- git:
+    local-name: rqt_controller_bug
+    uri: git@github.com:RobertWilbrandt/rqt_controller_bug.git
+- git:
+    local-name: urdf_geometry_parser
+    uri: https://github.com/ros-controls/urdf_geometry_parser.git
