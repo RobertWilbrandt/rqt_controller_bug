@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Load robot description -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find rqt_controller_bug)/urdf/sample_robot.urdf.xacro" />
+
+  <!-- Load sim config and start simulated hardware interface -->
+  <rosparam ns="hardware_interface">
+    sim_control_mode: 0
+    joints:
+      - link_1_joint
+  </rosparam>
+  <rosparam ns="generic_hw_control_loop">
+    loop_hz: 100
+    cycle_time_error_threshold: 0.01
+  </rosparam>
+  <node name="hw_sim" pkg="ros_control_boilerplate" type="sim_hw_main" output="screen" />
+
+  <!-- Load controller config -->
+  <rosparam>
+    joint_state_controller:
+      type: joint_state_controller/JointStateController
+      publish_rate: 100
+
+    joint_position_controller:
+      type: position_controllers/JointPositionController
+      joint: link_1_joint
+
+    joint_trajectory_controller:
+      type: position_controllers/JointTrajectoryController
+      joints: ['link_1_joint']
+  </rosparam>
+
+  <!-- Start some controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" output="screen" />
+  <node name="controller_loader" pkg="controller_manager" type="spawner" args="--stopped joint_position_controller" output="screen" />
+
+  <!-- Start rqt controller manager plugin -->
+  <node name="rqt_controller_manager" pkg="rqt_controller_manager" type="rqt_controller_manager" output="screen" />
+
+</launch>
